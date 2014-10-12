@@ -27,8 +27,8 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <stdio.h>
-#include <sys/wait.h>
- 
+//#include <sys/wait.h>
+#include <sys/types.h>
 
 
 /**
@@ -59,7 +59,7 @@ int exec(int argc, char **argv)
 {
     int return_value = 0;
     pid_t pid = 0;
-
+/*
     if(argc < 2)
     {
         printf("exec: incorrect number of arguments\n");
@@ -77,15 +77,15 @@ int exec(int argc, char **argv)
         printf("exec: file is not executeable\n");
         return 3;
     }
-
+*/
     if((pid = fork()) == 0)
     {
-        execv(argv[1], &argv[1]);
+        execve(argv[1], &argv[1], NULL);
     }
     else
     {
-        waitpid(pid, &return_value, 0);
-        return_value = WEXITSTATUS(return_value);
+        //waitpid(pid, &return_value, 0);
+        //return_value = WEXITSTATUS(return_value);
     }
 
     return return_value;

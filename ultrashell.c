@@ -46,8 +46,6 @@
 
 int main(int argc, char **argv)
 {
-	printf("Ultrashell started.\n");
-
 	struct shell_state shell;	
 	shell.last_ret_value = 0;
 	shell.cmds = initBinaryTree();
@@ -59,13 +57,16 @@ int main(int argc, char **argv)
 	int input = -1;
 	while(input < 0)
 	{
-		input = open("/dev/stdin", 1, 0);
+		input = open("/dev/kbd", O_RDONLY, 0);
 	}
+
+	printf("Ultrashell started.\n");
+
 
 	do
 	{
-		inchar = getchar();
-		//read(input, &inchar, sizeof(char));
+		//inchar = getchar();
+		read(input, &inchar, sizeof(char));
 
 		switch(inchar)
 		{
