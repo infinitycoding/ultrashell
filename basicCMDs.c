@@ -59,13 +59,13 @@ int exec(int argc, char **argv)
 {
     int return_value = 0;
     pid_t pid = 0;
-/*
+
     if(argc < 2)
     {
         printf("exec: incorrect number of arguments\n");
         return 1;
     }
-
+/*
     if(access(argv[1], F_OK) == -1)
     {
         printf("exec: file does not exist\n");
