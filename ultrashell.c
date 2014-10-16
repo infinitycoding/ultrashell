@@ -46,12 +46,15 @@
 
 int main(int argc, char **argv)
 {
+	printf("Ultrashell started.\n");
+	
 	struct shell_state shell;	
 	shell.last_ret_value = 0;
 	shell.cmds = initBinaryTree();
 
 	int counter = 0;
 	char inchar;
+	char wd[80];
 	dynamic_array *inbuffer = create_array(BLOCKSIZE);
 
 	int input = -1;
@@ -60,9 +63,9 @@ int main(int argc, char **argv)
 		input = open("/dev/kbd", O_RDONLY, 0);
 	}
 
-	printf("Ultrashell started.\n");
-
-
+	getcwd(wd, 80);
+	printf("%s$ ", wd);
+	
 	do
 	{
 		//inchar = getchar();
@@ -92,6 +95,9 @@ int main(int argc, char **argv)
 		{
 			parserLine(&shell, as_string(inbuffer));
 
+			getcwd(wd, 80);
+			printf("%s$ ", wd);
+			
 			counter = 0;
 			set(inbuffer, counter, '\0');
 		}

@@ -134,11 +134,18 @@ int cd(int argc, char **argv)
 		printf("cd: incorrect number of arguments\n");
 		return 1;
 	}
+	
+	int ret = chdir(argv[1]);
 
-	if(chdir(argv[1]) == -1)
+	if(ret == -1)
 	{
-		printf("cd: %s: unable to find file or directory", argv[1]);
+		printf("cd: %s: unable to find file or directory\n", argv[1]);
 		return 2;
+	}
+	else if(ret == -2)
+	{
+		printf("cd: %s: no permission to access directory\n", argv[1]);
+		return 3;
 	}
 
 	return 0;
