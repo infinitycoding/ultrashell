@@ -27,7 +27,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <stdio.h>
-//#include <sys/wait.h>
+#include <sys/wait.h>
 #include <sys/types.h>
 
 
@@ -80,11 +80,12 @@ int exec(int argc, char **argv)
 */
     if((pid = fork()) == 0)
     {
-        execve(argv[1], &argv[1], NULL);
+		void *envp[] = {NULL};
+        execve(argv[1], argv, envp);
     }
     else
     {
-        //waitpid(pid, &return_value, 0);
+        waitpid(pid, &return_value, 0);
         //return_value = WEXITSTATUS(return_value);
     }
 
