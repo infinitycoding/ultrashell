@@ -63,11 +63,6 @@ int main(int argc, char **argv)
 
 	printf("Ultrashell started.\n");
 	
-/*  //TEST	
-	char *av[] = {NULL, "ls", NULL};
-	while(1)
-	exec(2, av);
-*/
 	getcwd(wd, 80);
 	printf("%s$ ", wd);
 	
@@ -187,7 +182,7 @@ int getTokens(const char *instring, char ***tokens)
 
 	memset(currentToken, '\0', sizeof(currentToken));
 
-	tokens[0] = (char **)malloc(sizeof(char *) * tokenNumber);
+	tokens[0] = (char **)malloc(sizeof(char *) * tokenNumber+1);
 
 	for(i = 0; instring[i] != '\n' && instring[i] != '\0'; i++)
 	{
@@ -214,6 +209,8 @@ int getTokens(const char *instring, char ***tokens)
 	currentToken[tokenSize] = '\0';
 	tokens[0][currentTokenNumber] = (char *)malloc(sizeof(char) * (tokenSize+1));
 	strncpy(tokens[0][currentTokenNumber], currentToken, (tokenSize+1));
+
+	tokens[0][tokenNumber] = NULL;
 
 	return tokenNumber;
 }
