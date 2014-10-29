@@ -82,11 +82,10 @@ int exec(int argc, char **argv)
     if((pid = fork()) == 0)
     {
 		void *envp[] = {NULL};
-		printf("%d, %x\n", argc, argv[2]);
         int ret = execve(argv[1], &argv[1], NULL);
 		if(ret < 0)
 		{
-			printf("something went wrong.\n");
+			printf("Error in execve.\n");
 		}
 		exit(-1);
     }
@@ -94,7 +93,7 @@ int exec(int argc, char **argv)
     {
         waitpid(pid, &return_value, 0);
         //return_value = WEXITSTATUS(return_value);
-return_value=0;
+
 		lseek(input, 0, SEEK_END);
     }
 
@@ -200,3 +199,4 @@ int sexit(int argc, char **argv)
 
 	return 0;
 }
+
