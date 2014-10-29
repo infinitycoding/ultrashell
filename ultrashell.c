@@ -36,6 +36,7 @@
 
 //#include <universe.h>
 
+int input = -1;
 
 /**
  * @brief the main function of the ultrashell.
@@ -46,8 +47,6 @@
 
 int main(int argc, char **argv)
 {
-	printf("Ultrashell started.\n");
-	
 	struct shell_state shell;	
 	shell.last_ret_value = 0;
 	shell.cmds = initBinaryTree();
@@ -57,12 +56,18 @@ int main(int argc, char **argv)
 	char wd[80];
 	dynamic_array *inbuffer = create_array(BLOCKSIZE);
 
-	int input = -1;
 	while(input < 0)
 	{
-		input = open("/dev/kbd", O_RDONLY, 0);
+		input = open("/dev/kbd", O_RDONLY | O_APPEND, 0);
 	}
 
+	printf("Ultrashell started.\n");
+	
+/*  //TEST	
+	char *av[] = {NULL, "ls", NULL};
+	while(1)
+	exec(2, av);
+*/
 	getcwd(wd, 80);
 	printf("%s$ ", wd);
 	

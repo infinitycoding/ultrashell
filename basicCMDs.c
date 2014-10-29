@@ -30,6 +30,7 @@
 #include <sys/wait.h>
 #include <sys/types.h>
 
+extern int input;
 
 /**
  * @brief the echo function
@@ -81,12 +82,14 @@ int exec(int argc, char **argv)
     if((pid = fork()) == 0)
     {
 		void *envp[] = {NULL};
-        execve(argv[1], argv, envp);
+        execve(argv[1], &argv[1], NULL);
     }
     else
     {
         waitpid(pid, &return_value, 0);
         //return_value = WEXITSTATUS(return_value);
+
+		lseek(input, 0, SEEK_END);
     }
 
     return return_value;
